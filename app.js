@@ -1,5 +1,5 @@
 const express = require('express')
-const morgan = require('morgan')
+//const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const favicon =  require('serve-favicon')
 const sequelize = require('./src/db/sequelize')
@@ -11,7 +11,7 @@ const app = express()
 const port =  3000
 
 app
-    .use(morgan('dev'))
+    //.use(morgan('dev'))
     .use(favicon(__dirname + '/favicon.svg'))
     .use(bodyParser.json())
     
