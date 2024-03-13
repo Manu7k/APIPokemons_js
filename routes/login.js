@@ -13,6 +13,7 @@ module.exports = (app) => {
                 const message = "L'utilisateur demandé n'existe pas."
                 return res.status(404).json({message})
             }
+            
             bcrypt.compare(req.body.password, user.password)
             .then(isPasswordValid => {
                 if(isPasswordValid){
@@ -32,7 +33,7 @@ module.exports = (app) => {
             })
         })
         .catch(error => {
-            const message = "Une erreur cc'est produite lors de la connection. Réessayez dans quelques instant."
+            const message = "Une erreur c'est produite lors de la connection. Réessayez dans quelques instant."
             return res.json({message, data: error})
         })
     })

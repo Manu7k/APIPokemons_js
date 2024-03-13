@@ -5,7 +5,7 @@ module.exports = (app) => {
         Pokemon.create(req.body)
         .then(pokemon => {
             const message = `Le pokemon ${pokemon.name} a bien été crée.`
-            res.status('200').res.json({message, data: pokemon})
+            res.json({message, data: pokemon})
         })
         .catch( error => {
             if (error instanceof UniqueConstraintError){
