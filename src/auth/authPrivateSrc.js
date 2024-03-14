@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
 const primaryKey = require('./private_key')
+const {User} = require('../db/sequelize')
+const admins = ['emko','gio']
 
 module.exports= (req, res, next) => {
     const authorizationHeader = req.headers.authorization
@@ -10,16 +12,19 @@ module.exports= (req, res, next) => {
     const token = authorizationHeader.split(' ')[1]
     jwt.verify(token,primaryKey, (error, decodedToken) => {
         if(error){
-            const message = "L'utilisateur n'est pas authorisé à accéder à cette ressource."
+            const message = "Votre token n'as pas pue être vérifier."
             return res.status(401).json({message, data: error})
         }
-        const userId = decodedToken.userId
-        console.log(req.body.userId, userId)
-        if(req.body.userId && req.body.userId !== userId){
-            const message = "L'identifiant de l'utilisateur est invalide."
-            res.status(401).json({message})
-        } else{
-            next()
-        }
+        User.findOne({
+            where: {username: decodedToken.userName}
+        })
+        .then(user => {
+            if(admins.includes(user.username)){
+                next()
+            }else{
+                const message = "L'utilisateur n'est pas authorisé à accéder à cette ressource."
+                return res.status(401).json({message, data: error})
+            }
+        })
     })
 }

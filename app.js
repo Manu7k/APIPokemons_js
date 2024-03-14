@@ -25,6 +25,8 @@ require('./routes/createPokemon')(app)
 require('./routes/updatePokemon')(app)
 require('./routes/deletedPokemon')(app)
 require('./routes/login')(app)
+require('./routes/register')(app)
+require('./routes/findAllUsers')(app)
 
 app.use(({res}) => {
     const message = "Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL."

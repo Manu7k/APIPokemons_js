@@ -19,11 +19,11 @@ module.exports = (app) => {
                 if(isPasswordValid){
                     const message = `Bienvenue ${user.username}`
                     const token = jwt.sign(
-                        {userId: user.id},
+                        {"userName": user.username},
                         primaryKey,
                         {expiresIn:'24h'}
                     )
-                    return res.json({message, data: user, token})
+                    return res.json({message, token})
                 }
             
                 else{
